@@ -1,0 +1,7 @@
+export("dif", "dis", "kmeans.run", "mat.dif", "mat.dis", "mmds", "mmds.plot", "mmds.2D.plot", "scree.plot", "random.msa", "read.fasta", "read.msf", "sil.score", "write.mmds.pdb","col.group")
+
+importFrom(gtools, permutations, combinations)
+importFrom(amap, Kmeans)
+importFrom(e1071, matchClasses)
+importFrom(ggplot2, alpha)
+importFrom(cluster, silhouette)

@@ -1,0 +1,105 @@
+write.mmds.pdb <- function (x, axis = c(1, 2, 3), file.pdb = "R.pdb") {
+
+  if (!inherits(x, "mmds"))
+    stop("object of class 'mmds' expected")
+  if (length(axis) != 3)
+    stop("axis have to be of length 3")
+  if (any(axis > length(x$eigen.perc)))
+    stop("wrong axis")
+  pdb.coord <- function(i,nbgroup, x, y, z) {
+    format <- "%s%5s%3s%6s%3s%-7s%8.3f%8.3f%8.3f%6s%6s%12s"
+    sprintf(format, "HETATM", i, "O", "HOH", groupId[nbgroup] , i, x, y, z, "1.00", "0.00", "O")
+  } 
+
+#  pdb.axis <- function(i, x, y, z, atom) {
+#    format <- "%s%5s%3s%9s%-7s%8.3f%8.3f%8.3f%6s%6s%12s"
+#    sprintf(format, "HETATM", i, atom, "A ", i, x, y, z, "1.00", "0.00", atom)
+#  }
+
+#  pdb.conect <- function(i, j) {
+#    format <- "%s%5s%5s"
+#    sprintf(format, "CONECT", i, j)
+#  } 
+  groupName<-"NoGroup"
+  groupId<-c("Z ","A ","B ","C ","D ","E ","F ","G ","H ","I ","J ","K ","L ","M ","N ","O ","P ",
+	"Q ","R ","S ","T ","U ","V ","W ","X ","Y ")  
+  x$active.coord <- x$active.coord * 50
+  active.nb <- nrow(x$active.coord)
+  ncol <- nrow(x$active.col)
+  if (!is.null(x$sup.coord)) {
+    x$sup.coord <- x$sup.coord * 50
+    sup.nb <- nrow(x$sup.coord)
+  }
+
+  pdb.lines <- NULL
+
+  #pdb for active
+  j <- 1
+    for (i  in 1:nrow(x$active.group)) {
+	if(!length(which(x$active.group[i]==groupName))==1){
+		groupName<-c(groupName,x$active.group[i])
+        }
+    }
+  for (i in 1:active.nb) {
+    if(ncol!=1){
+      nbgroup=which(x$active.col[i,2]==groupName)
+    }
+    else {
+      nbgroup=which(x$active.col[1,2]==groupName)
+    }
+    if(nbgroup > 26){
+	nbgroup<-1
+    }
+    pdb.lines <- rbind(pdb.lines, pdb.coord(j,nbgroup,x$active.coord[i, axis[1]], x$active.coord[i, axis[2]],
+       x$active.coord[i, axis[3]]))
+      j <- j + 1
+  }
+     
+  #pdb for sup if given
+  if (!is.null(x$sup.coord)) {
+    ncol <- nrow(x$sup.col)
+   for (i  in 1:nrow(x$sup.group)) {
+	if(!length(which(x$sup.group[i]==groupName))==1){
+		groupName<-c(groupName,x$sup.group[i])
+        }
+    }
+    j <-5001
+    for (i in 1:sup.nb) {
+      if(ncol!=1){
+	nbgroup=which(x$sup.col[i,2]==groupName)
+      }
+      else {
+     
+	nbgroup=which(x$sup.col[i,2]==groupName)
+      }
+      if(nbgroup > 26){
+  	nbgroup<-1
+      }
+      pdb.lines <- rbind(pdb.lines, pdb.coord(j,nbgroup, x$sup.coord[i, axis[1]], x$sup.coord[i, axis[2]],
+         x$sup.coord[i, axis[3]]))
+        j <- j + 1
+    }
+  }
+
+#  m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]]) * 2)
+#  if (!is.null(x$sup.coord)) {
+#    m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]], 
+#         x$sup.coord[, axis[1]], x$sup.coord[, axis[2]], x$sup.coord[, axis[3]]) * 2)
+#  }
+
+#  all.nb <- active.nb
+#  if (!is.null(x$sup.coord))
+#    all.nb <- (active.nb + sup.nb)
+
+  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 1, m, 0, 0, "O"))
+  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 2, 0, m, 0, "C"))
+  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 3, 0, 0, m, "N"))
+  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 4, 0, 0, 0, "Po"))
+
+  #pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 1, all.nb + 4))
+  #pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 2, all.nb + 4))
+  #pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 3, all.nb + 4))
+
+  cat(pdb.lines, file = file.pdb, sep = "\n")
+}
+
