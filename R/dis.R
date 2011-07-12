@@ -1,7 +1,7 @@
 dis <- function (seq1, seq2, sub.mat.id = "PAM250", gap = NULL) {
 
   if (!exists("sub.mat"))
-    data(sub.mat)
+    data("sub.mat", package = "bios2mds", verbose= FALSE)
 
   if (length(seq1) !=  length(seq2))
     stop("seq1 and seq2 are not of the same length")

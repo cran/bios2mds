@@ -10,7 +10,7 @@ sup.legend.pos = "bottomright", active.legend.name = x$active.group[,1],
 sup.legend.name = x$sup.group[,1], active.legend.col = x$active.group[,2],
 sup.legend.col = x$sup.group[,2], outfile.width = NULL, outfile.height = NULL,
 box.lwd = 1, cex.axis = 1, cex.lab = 1, sup.legend.text = 1,
-active.legend.text = 1, legend.axis = TRUE, grid = TRUE) {
+active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE) {
 
 	#check arguments
 	if (!inherits(x, "mmds"))
@@ -91,9 +91,10 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE) {
 	plot(x$active.coord[, axis[1]], x$active.coord[, axis[2]], col = alpha(active.col, active.alpha),
 		pch = active.pch, cex = active.cex, lwd = active.lwd, xlab = x.lab, ylab = y.lab, xlim = xlim,
 		ylim = ylim,cex.lab=cex.lab,main=title,frame=FALSE,xaxt="n",yaxt="n")
-	axis(1,lwd=box.lwd,cex.axis=cex.axis)
-	axis(2,lwd=box.lwd,cex.axis=cex.axis)
-
+	if (axes == TRUE) {
+	  axis(1,lwd=box.lwd,cex.axis=cex.axis)
+	  axis(2,lwd=box.lwd,cex.axis=cex.axis)
+	}
 	if (active.lab)
 		text(x$active.coord[, axis[1]], y = x$active.coord[, axis[2]],
 			labels = rownames(x$active.coord), pos = 3, col = active.col)

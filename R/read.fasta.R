@@ -36,6 +36,6 @@ read.fasta <- function (file, aa.to.upper = TRUE, gap.to.dash = TRUE) {
   #turn gap into dash character
   if (gap.to.dash)
     seq <- lapply(seq, function (i) {i[is.gap(i)] <- "-"; return(i)})
-  
+  class (seq) <- c("align")
   return(seq)
 }

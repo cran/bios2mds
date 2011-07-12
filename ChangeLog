@@ -1,0 +1,19 @@
+-------------------
+Version: 1.1
+Date: 2011-07-08
+
+	* depends : New function mmds.3D.plot depends on "rgl" package to work.
+
+	* kmeans.run : Adds "kmean" object class to kmean.run return.
+
+	* read.fasta, read.msf : Adds "align" object class to list returned by functions.
+	
+	* write.mmds.pdb : Adds dimension axis in outfile pdb format.
+
+	* mmds.2D.plot : Adds "axes" parameters. 
+
+	* mmds.3D.plot : New function to had 3D device visualization of "mmds" object. 
+
+	* extract.cluster : New function to extract the cluster sequences from "align" object, the clusters are defined by "kmean" object. 
+
+	* write.fasta : New function to write outfile in fasta format of "align" object.

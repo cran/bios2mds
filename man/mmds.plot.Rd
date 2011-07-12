@@ -48,8 +48,8 @@ Julien Pele and Jean-Michel Becu
 \code{plot.pca} function in \code{bio3d} package.
 }
 \examples{
-# summary plot of the MDS analysis of human GPCRs with projection of GPCRs from
-# D. melanogaster as supplementary elements:
+# summary plot of the MDS analysis of human GPCRs with projection of GPCRs
+# from D. melanogaster as supplementary elements:
 data(gpcr)
 mmds.plot(gpcr$mmds)
 }

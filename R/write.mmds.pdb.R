@@ -11,15 +11,15 @@ write.mmds.pdb <- function (x, axis = c(1, 2, 3), file.pdb = "R.pdb") {
     sprintf(format, "HETATM", i, "O", "HOH", groupId[nbgroup] , i, x, y, z, "1.00", "0.00", "O")
   } 
 
-#  pdb.axis <- function(i, x, y, z, atom) {
-#    format <- "%s%5s%3s%9s%-7s%8.3f%8.3f%8.3f%6s%6s%12s"
-#    sprintf(format, "HETATM", i, atom, "A ", i, x, y, z, "1.00", "0.00", atom)
-#  }
+  pdb.axis <- function(i, x, y, z, atom) {
+    format <- "%s%5s%3s%9s%-7s%8.3f%8.3f%8.3f%6s%6s%12s"
+    sprintf(format, "HETATM", i, atom, "A ", i, x, y, z, "1.00", "0.00", atom)
+  }
 
-#  pdb.conect <- function(i, j) {
-#    format <- "%s%5s%5s"
-#    sprintf(format, "CONECT", i, j)
-#  } 
+  pdb.conect <- function(i, j) {
+    format <- "%s%5s%5s"
+    sprintf(format, "CONECT", i, j)
+  } 
   groupName<-"NoGroup"
   groupId<-c("Z ","A ","B ","C ","D ","E ","F ","G ","H ","I ","J ","K ","L ","M ","N ","O ","P ",
 	"Q ","R ","S ","T ","U ","V ","W ","X ","Y ")  
@@ -81,25 +81,24 @@ write.mmds.pdb <- function (x, axis = c(1, 2, 3), file.pdb = "R.pdb") {
     }
   }
 
-#  m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]]) * 2)
-#  if (!is.null(x$sup.coord)) {
-#    m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]], 
-#         x$sup.coord[, axis[1]], x$sup.coord[, axis[2]], x$sup.coord[, axis[3]]) * 2)
-#  }
+  m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]]) * 2)
+  if (!is.null(x$sup.coord)) {
+    m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]], 
+         x$sup.coord[, axis[1]], x$sup.coord[, axis[2]], x$sup.coord[, axis[3]]) * 2)
+  }
 
-#  all.nb <- active.nb
-#  if (!is.null(x$sup.coord))
-#    all.nb <- (active.nb + sup.nb)
+  all.nb <- active.nb
+  if (!is.null(x$sup.coord))
+    all.nb <- (active.nb + sup.nb)
 
-  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 1, m, 0, 0, "O"))
-  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 2, 0, m, 0, "C"))
-  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 3, 0, 0, m, "N"))
-  #pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 4, 0, 0, 0, "Po"))
+  pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 1, m, 0, 0, "O"))
+  pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 2, 0, m, 0, "C"))
+  pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 3, 0, 0, m, "N"))
+  pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 4, 0, 0, 0, "Po"))
 
-  #pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 1, all.nb + 4))
-  #pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 2, all.nb + 4))
-  #pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 3, all.nb + 4))
+  pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 1, all.nb + 4))
+  pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 2, all.nb + 4))
+  pdb.lines <- rbind(pdb.lines, pdb.conect(all.nb + 3, all.nb + 4))
 
   cat(pdb.lines, file = file.pdb, sep = "\n")
 }
-

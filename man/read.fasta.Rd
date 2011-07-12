@@ -35,7 +35,7 @@ For multiple alignments, the FASTA formatted sequences are concatenated to creat
 FASTA format.
 }
 \value{
-A named list whose elements correspond to sequences, in the form of character vectors.
+A object of class 'align', which is a named list whose elements correspond to sequences, in the form of character vectors.
 }
 \references{
 Pearson WR and Lipman DJ (1988) Improved tools for biological sequence comparison.

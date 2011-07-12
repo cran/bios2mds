@@ -37,7 +37,7 @@ MSF file displays several specificities:
 }
 }
 \value{
-A named list whose elements correspond to sequences, in the form of character vectors.
+A object of class 'align', which is a named list whose elements correspond to sequences, in the form of character vectors.
 }
 \author{
 Julien Pele

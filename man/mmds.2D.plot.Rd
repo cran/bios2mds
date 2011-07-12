@@ -20,7 +20,7 @@ sup.legend.pos = "bottomright", active.legend.name = x$active.group[,1],
 sup.legend.name = x$sup.group[,1], active.legend.col = x$active.group[,2],
 sup.legend.col = x$sup.group[,2], outfile.width = NULL, outfile.height = NULL,
 box.lwd = 1, cex.axis = 1, cex.lab = 1, sup.legend.text = 1,
-active.legend.text = 1, legend.axis = TRUE, grid = TRUE)
+active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
 }
 \arguments{
   \item{x}{
@@ -47,6 +47,12 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE)
   \item{new.plot}{
   a boolean indicating whether a new graphical device should be created (TRUE) or not (FALSE). Default is TRUE.
 }
+  \item{active.pch}{
+  an integer indicating the symbol of active elements. Default is 20, corresponding to dots.
+}
+  \item{sup.pch}{
+  an integer indicating the symbol of supplementary elements. Default is 3, corresponding to crosses.
+}
   \item{active.col}{
   a string of characters or character vector representing the color(s) of the active elements. Default is x$active.col[,3]. 
   It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, 
@@ -60,12 +66,6 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE)
   a string or character vector representing the color(s) of supplementary elements. Default is x$sup.col[,3]. 
   It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, 
   or to magenta (filled automaticaly with the \code{mmds} function). 
-}
-  \item{active.pch}{
-  an integer indicating the symbol of active elements. Default is 20, corresponding to dots.
-}
-  \item{sup.pch}{
-  an integer indicating the symbol of supplementary elements. Default is 3, corresponding to crosses.
 }
   \item{active.lab}{
   a boolean indicating whether labels of active elements should be displayed (TRUE) or not (FALSE). Default is FALSE.
@@ -153,6 +153,9 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE)
   \item{grid}{
   a boolean indicating whether grid should be displayed (TRUE) or not (FALSE). Default is TRUE.
 }
+  \item{axes}{
+  a boolean indicating whether x and y axes should be displayed (TRUE) or not (FALSE). Default is TRUE.
+}
 }
 \details{
 If \code{mmds.2D.plot} is used after the \code{col.group} function, 
@@ -177,7 +180,7 @@ Julien Pele and Jean-Michel Becu
 \code{png}, \code{pdf}, \code{postscript} functions (default R package).
 }
 \examples{
-# scatter plot of human GPCRs onto the first two axes from MDS analysis
+# scatter plot of human GPCRs onto the first two axes obtained from MDS analysis
 # with projection of GPCRs from D. melanogaster as supplementary elements:
 data(gpcr)
 active <- gpcr$dif$sapiens.sapiens

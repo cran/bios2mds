@@ -37,7 +37,7 @@ The function \code{matchClasses} from the \code{e1071} package is used to compar
 \code{kmeans.run} returns two lists. In either list, the clusters refer to those observed in the most frequent solution. The first list provides, for each element, the relative ratio of its assignment to each cluster in the different runs. The second list provides, for each cluster, the list of the assigned elements along with the relative assignment to this cluster in the different runs. 
 }
 \value{
- A named list of 2 elements:
+ A object of class 'kmean', which is a named list of two elements
   \item{elements}{
   a named list of elements with the relative assignment of each element to each cluster.
   }
@@ -61,7 +61,7 @@ data(gpcr)
 coord <- gpcr$mmds$active.coord
 kmeans.run1 <- kmeans.run(coord, nb.clus = 4, nb.run = 100)
 kmeans.run1$clusters
-kmeans.run1$emements
+kmeans.run1$elements
 }
 \keyword{clustering}
 

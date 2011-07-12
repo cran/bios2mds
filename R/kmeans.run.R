@@ -87,7 +87,7 @@
   n <- sapply(occ.perc.max, names)
   m <- sapply(occ.perc.max, c, use.names = FALSE)
   res$clusters <- tapply(m, n, c)
-
+  class (res) <- c("kmean")
   return(res)
 }
 
