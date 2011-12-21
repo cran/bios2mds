@@ -28,12 +28,16 @@ This data set was obtained by the \code{bios2mds} analysis of the two multiple s
   	\item{sapiens.sapiens$*}{ are 283 by 283 matrices of dissimilarity scores between the 283 aligned sequences of human GPCRs.
   	\describe{
  	 	\item{sapiens.sapiens$PAM40}{ is calculated with PAM40.}
+		\item{sapiens.sapiens$PAM80}{ is calculated with PAM80.}
   		\item{sapiens.sapiens$PAM120}{ is calculated with PAM120.}
   		\item{sapiens.sapiens$PAM250}{ is calculated with PAM250.}
+  		\item{sapiens.sapiens$BLOSUM30}{ is calculated with BLOSUM30.}
   		\item{sapiens.sapiens$BLOSUM45}{ is calculated with BLOSUM45.}
   		\item{sapiens.sapiens$BLOSUM62}{ is calculated with BLOSUM62.}
   		\item{sapiens.sapiens$BLOSUM80}{ is calculated with BLOSUM80.}
-  		\item{sapiens.sapiens$PAM250TM}{ is calculated with PAM250TM.}
+  		\item{sapiens.sapiens$GONNET}{ is calculated with GONNET.}
+  		\item{sapiens.sapiens$JTT}{ is calculated with JTT.}
+  		\item{sapiens.sapiens$JTT_TM}{ is calculated with JTT_TM.}
   		\item{sapiens.sapiens$PHAT}{ is calculated with PHAT.}
   		}
   	}
@@ -41,12 +45,16 @@ This data set was obtained by the \code{bios2mds} analysis of the two multiple s
   	\item{melanogaster.sapiens$*}{ are 59 by 283 matrices of dissimilarity scores between the 283 aligned sequences from \emph{H. sapiens} and \emph{D. melanogaster}
   	\describe{
   		\item{melanogaster.sapiens$PAM40}{ is calculated with PAM40.}
+  		\item{melanogaster.sapiens$PAM80}{ is calculated with PAM80.}
   		\item{melanogaster.sapiens$PAM120}{ is calculated with PAM120.}
   		\item{melanogaster.sapiens$PAM250}{ is calculated with PAM250.}
+  		\item{melanogaster.sapiens$BLOSUM30}{ is calculated with BLOSUM30.}
   		\item{melanogaster.sapiens$BLOSUM45}{ is calculated with BLOSUM45.}
   		\item{melanogaster.sapiens$BLOSUM62}{ is calculated with BLOSUM62.}
   		\item{melanogaster.sapiens$BLOSUM80}{ is calculated with BLOSUM80.}
-  		\item{melanogaster.sapiens$PAM250TM}{ is calculated with PAM250TM.}
+  		\item{melanogaster.sapiens$GONNET}{ is calculated with GONNET.}
+  		\item{melanogaster.sapiens$JTT}{ is calculated with JTT.}
+  		\item{melanogaster.sapiens$JTT_TM}{ is calculated with JTT_TM.}
   		\item{melanogaster.sapiens$PHAT}{ is calculated with PHAT.}
   		}
   	}
@@ -55,7 +63,13 @@ This data set was obtained by the \code{bios2mds} analysis of the two multiple s
 }
 \describe{
 \item{mmds}{
-  a typical example of metric MDS analysis with the \code{\link{mmds}} function of \code{bios2mds} using GPCRs from \emph{H. sapiens} as active data and GPCRs from \emph{D. melanogaster} as supplementary data with an example of clustering.
+  a typical example of metric MDS analysis with the \code{\link{mmds}} function of \code{bios2mds} using GPCRs from \emph{H. sapiens} as active data and GPCRs from \emph{D. melanogaster}, \emph{N. vectensis} and \emph{C. intestinalis} for supplementary data.
+  	\describe{
+  		\item{sapiens.active}{ metric MDS analysis of active data from \emph{H. sapiens}.}
+  		\item{melanogaster.project}{ projection of supplementary data from \emph{D. melanogaster} onto the human active space.}
+		\item{vectensis.project}{projection of supplementary data from \emph{N. vectensis} onto active the human space.}
+		\item{intestinalis.project}{projection of supplementary data from \emph{C. intestinalis} onto the human active space.}
+		}
   }
 }
 }
@@ -83,6 +97,7 @@ gpcr$dis$melanogaster.sapiens$BLOSUM45
 
 # displaying mmds analysis of the MSA of GPCRs from H. sapiens
 # and D. Melanogaster
-gpcr$mmds
+gpcr$mmds$sapiens.active
+gpcr$mmds$melanogaster.project
 }
 \keyword{datasets}

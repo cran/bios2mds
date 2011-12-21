@@ -5,7 +5,7 @@
 \title{Links elements in a mmds object to specific groups and colors}
 
 \description{
-Links elements in a \code{mmds} object to user-provided groups and colors.
+Links elements in a \code{mmds} object or \code{mmds.project} object to user-provided groups and colors.
 }
 
 \usage{
@@ -13,7 +13,7 @@ col.group(x,file,data = "active")
 }
 \arguments{
 	\item{x}{
-	  a mmds object obtained from \code{\link{mmds}} function
+	  a 'mmds' or 'project' object obtained from \code{\link{mmds}} or \code{\link{mmds.project}} function
 	}
 	\item{file}{
 	  a string of characters to indicate the file name assigning groups and colors to each active OR each supplementary element of the mmds object.
@@ -36,7 +36,7 @@ Adds data to a mmds object in order to color and label mmds scatter plots with u
 
 \seealso{
 See \code{colors} function (default R package).\cr
-See \code{getcol} in \code{made4} package for special colour palette developed to maximize the contrast between colours.\cr
+See \code{getcol} in \code{made4} package for special color palette developed to maximize the contrast between colors.\cr
 }
 \author{
 Jean-Michel Becu
@@ -46,11 +46,8 @@ Jean-Michel Becu
 # GPCRs from D. melanogaster as supplementary data:
 data(gpcr)
 active <- gpcr$dif$sapiens.sapiens
-sup <- gpcr$dif$melanogaster.sapiens
-mmds1 <- mmds(active = active,sup = sup)
-mmds1<-col.group(mmds1,system.file("csv/human_gpcr_group.csv"
+mmds_active <- mmds(active)
+mmds_active<-col.group(mmds_active,system.file("csv/human_gpcr_group.csv"
 ,package = "bios2mds"))
-mmds1<-col.group(mmds1,system.file("csv/drome_gpcr_group.csv"
-,package = "bios2mds"),data = "sup")
 }
 \keyword{mmds}

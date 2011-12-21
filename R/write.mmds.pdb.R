@@ -1,4 +1,4 @@
-write.mmds.pdb <- function (x, axis = c(1, 2, 3), file.pdb = "R.pdb") {
+write.mmds.pdb <- function (x, project = NULL, axis = c(1, 2, 3), file.pdb = "R.pdb") {
 
   if (!inherits(x, "mmds"))
     stop("object of class 'mmds' expected")
@@ -23,72 +23,72 @@ write.mmds.pdb <- function (x, axis = c(1, 2, 3), file.pdb = "R.pdb") {
   groupName<-"NoGroup"
   groupId<-c("Z ","A ","B ","C ","D ","E ","F ","G ","H ","I ","J ","K ","L ","M ","N ","O ","P ",
 	"Q ","R ","S ","T ","U ","V ","W ","X ","Y ")  
-  x$active.coord <- x$active.coord * 50
-  active.nb <- nrow(x$active.coord)
-  ncol <- nrow(x$active.col)
-  if (!is.null(x$sup.coord)) {
-    x$sup.coord <- x$sup.coord * 50
-    sup.nb <- nrow(x$sup.coord)
+  x$coord <- x$coord * 50
+  active.nb <- nrow(x$coord)
+  ncol <- nrow(x$col)
+  if (!is.null(project) && !inherits(project,"project")) {
+    project$coord <- project$coord * 50
+    sup.nb <- nrow(project$coord)
   }
 
   pdb.lines <- NULL
 
   #pdb for active
   j <- 1
-    for (i  in 1:nrow(x$active.group)) {
-	if(!length(which(x$active.group[i]==groupName))==1){
-		groupName<-c(groupName,x$active.group[i])
+    for (i  in 1:nrow(x$group)) {
+	if(!length(which(x$group[i]==groupName))==1){
+		groupName<-c(groupName,x$group[i])
         }
     }
   for (i in 1:active.nb) {
     if(ncol!=1){
-      nbgroup=which(x$active.col[i,2]==groupName)
+      nbgroup=which(x$col[i,2]==groupName)
     }
     else {
-      nbgroup=which(x$active.col[1,2]==groupName)
+      nbgroup=which(x$col[1,2]==groupName)
     }
     if(nbgroup > 26){
 	nbgroup<-1
     }
-    pdb.lines <- rbind(pdb.lines, pdb.coord(j,nbgroup,x$active.coord[i, axis[1]], x$active.coord[i, axis[2]],
-       x$active.coord[i, axis[3]]))
+    pdb.lines <- rbind(pdb.lines, pdb.coord(j,nbgroup,x$coord[i, axis[1]], x$coord[i, axis[2]],
+       x$coord[i, axis[3]]))
       j <- j + 1
   }
      
   #pdb for sup if given
-  if (!is.null(x$sup.coord)) {
-    ncol <- nrow(x$sup.col)
-   for (i  in 1:nrow(x$sup.group)) {
-	if(!length(which(x$sup.group[i]==groupName))==1){
-		groupName<-c(groupName,x$sup.group[i])
+  if (!is.null(project) && !inherits(project,"project")) {
+    ncol <- nrow(project$col)
+   for (i  in 1:nrow(project$group)) {
+	if(!length(which(project$group[i]==groupName))==1){
+		groupName<-c(groupName,project$group[i])
         }
     }
     j <-5001
     for (i in 1:sup.nb) {
       if(ncol!=1){
-	nbgroup=which(x$sup.col[i,2]==groupName)
+	nbgroup=which(project$col[i,2]==groupName)
       }
       else {
      
-	nbgroup=which(x$sup.col[i,2]==groupName)
+	nbgroup=which(project$col[i,2]==groupName)
       }
       if(nbgroup > 26){
   	nbgroup<-1
       }
-      pdb.lines <- rbind(pdb.lines, pdb.coord(j,nbgroup, x$sup.coord[i, axis[1]], x$sup.coord[i, axis[2]],
-         x$sup.coord[i, axis[3]]))
+      pdb.lines <- rbind(pdb.lines, pdb.coord(j,nbgroup, project$coord[i, axis[1]], project$coord[i, axis[2]],
+         project$coord[i, axis[3]]))
         j <- j + 1
     }
   }
 
-  m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]]) * 2)
-  if (!is.null(x$sup.coord)) {
-    m <- (max(x$active.coord[, axis[1]], x$active.coord[, axis[2]], x$active.coord[, axis[3]], 
-         x$sup.coord[, axis[1]], x$sup.coord[, axis[2]], x$sup.coord[, axis[3]]) * 2)
+  m <- (max(x$coord[, axis[1]], x$coord[, axis[2]], x$coord[, axis[3]]) * 2)
+  if (!is.null(project) && !inherits(project,"project")) {
+    m <- (max(x$coord[, axis[1]], x$coord[, axis[2]], x$coord[, axis[3]], 
+         project$coord[, axis[1]], project$coord[, axis[2]], project$coord[, axis[3]]) * 2)
   }
 
   all.nb <- active.nb
-  if (!is.null(x$sup.coord))
+  if (!is.null(project) && !inherits(project,"project"))
     all.nb <- (active.nb + sup.nb)
 
   pdb.lines <- rbind(pdb.lines, pdb.axis(all.nb + 1, m, 0, 0, "O"))

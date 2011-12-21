@@ -19,7 +19,7 @@ dis(seq1, seq2, sub.mat.id = "PAM250", gap = NULL)
 }
   \item{sub.mat.id}{
   a string of characters indicating the amino acid substitution matrix to be taken into 
-  account for calculation. This should be one of "PAM40", "PAM120", "PAM250", "BLOSUM45", "BLOSUM62", "BLOSUM80", "PAM250TM" and "PHAT". Default is PAM250. See \code{\link{sub.mat}}. 
+  account for calculation. This should be one of "PAM40", "PAM80", "PAM120", "PAM160", "PAM250", "BLOSUM30", "BLOSUM45", "BLOSUM62", "BLOSUM80", "GONNET", "JTT", "JTT_TM" and "PHAT". Default is PAM250. See \code{\link{sub.mat}}. 
 }
   \item{gap}{
   a numeric vector of length 2, indicating the penalty for initiating and extending a strand of two gaps (gap ignored, default).
@@ -67,9 +67,6 @@ The dissimilarity score \emph{\eqn{D_{ij}}} between sequences \emph{i} and \emph
 \value{
 A single numeric value representing the dissimilarity score.
 }
-\note{
-The computation time for \code{dis} is higher than for \code{\link{dif}} because of the increased algorithm complexity.
-}
 \author{
 Julien Pele
 }
@@ -85,7 +82,7 @@ evolutionary time: a simulation study of various relationships. \emph{J Mol Evol
 
 \examples{
 # calculating dis between the sequences of CLTR1_HUMAN and CLTR2_HUMAN:
-aln <- read.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
+aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
 dis <- dis(aln$CLTR1_HUMAN, aln$CLTR2_HUMAN)
 dis
 }

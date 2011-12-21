@@ -4,16 +4,36 @@ Date: 2011-07-08
 
 	* depends : New function mmds.3D.plot depends on "rgl" package to work.
 
-	* kmeans.run : Adds "kmean" object class to kmean.run return.
+	* kmeans.run : "kmean" object class added to kmean.run return.
 
-	* read.fasta, read.msf : Adds "align" object class to list returned by functions.
+	* read.fasta, read.msf : "align" object class added to list returned by functions.
 	
-	* write.mmds.pdb : Adds dimension axis in outfile pdb format.
+	* write.mmds.pdb : Dimension axis added to outfile pdb format.
 
-	* mmds.2D.plot : Adds "axes" parameters. 
+	* mmds.2D.plot : "axes" parameters added. 
 
-	* mmds.3D.plot : New function to had 3D device visualization of "mmds" object. 
+	* mmds.3D.plot : New function for 3D device visualization of "mmds" object. 
 
-	* extract.cluster : New function to extract the cluster sequences from "align" object, the clusters are defined by "kmean" object. 
+	* extract.cluster : New function to extract the sequences of the clusters from "align" object, the clusters are defined by "kmean" object. 
 
-	* write.fasta : New function to write outfile in fasta format of "align" object.
+	* write.fasta : New function to write outfile of "align" object in fasta format.
+
+-------------------
+Version: 1.2
+Date: 2011-12-21
+
+	* read.fasta, read.msf : Function names changed to import.fasta and import.msf. 
+
+	* write.fasta : Function name changed to export.fasta. 
+	
+	* mmds.2D.plot, mmds.3D.plot, mmds.plot : Implementation of new 'project' object class. 
+
+	* mmds.2D.multi : New function to visualize multiple 'project' objects with a barycenter representation. 
+
+	* mmds : Projection of supplementary elements removed and 'mmds' object structure modified.
+
+	* mmds.project : New function to perform projection of supplementary elements on 'mmds' object, returns 'project' object.
+	
+	* mat.dif, mat.dis : Upgraded in order to gain execution time, 'sqrt' option added, gtools dependence removed.
+	
+	* gpcr(data) : Modification of sub 'mmds' with the new structure of the MDS analysis return.

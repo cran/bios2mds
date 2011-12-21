@@ -9,7 +9,7 @@ Builds a multiple sequence alignment (MSA) of random sequences.
 }
 \usage{
 random.msa(nb.seq = 100, id = "SEQ", nb.pos = 100, gap = FALSE,
-aa.strict = FALSE)
+aa.strict = FALSE, align = NULL, align.replace = TRUE)
 }
 \arguments{
   \item{nb.seq}{
@@ -29,6 +29,13 @@ aa.strict = FALSE)
   \item{aa.strict}{
   a logical value indicating whether only strict amino acids should be taken into account (TRUE)
   or not (FALSE). Default is FALSE.
+}
+  \item{align}{
+  an object of class 'align', obtained from \code{\link{import.fasta}} or \code{\link{import.msf}} function.
+  If this parameter is not NULL, the composition of the output sequences is based on the composition of the input sequences. Default is NULL.
+}
+  \item{align.replace}{
+  a logical value indicating random drawing with replacement (TRUE) or without replacement (FALSE) of characters present in \code{align}. Default is FALSE.
 }
 }
 \details{
@@ -59,7 +66,7 @@ Pele J, Abdi H, Moreau M, Thybert D and Chabbert M (2011) Multidimensional scali
 \examples{
 # generating a random sequence alignment with the same characterics
 # as human GPCRs:
-aln <- read.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
+aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
 nb.seq <- length(aln)
 nb.pos <- length(aln[[1]])
 aln.random <- random.msa(nb.seq = nb.seq, nb.pos = nb.pos)

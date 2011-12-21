@@ -8,11 +8,14 @@ Plots a summary of the mmds results
 Displays one scree plot and three scatter plots of \code{\link{mmds}} results.
 }
 \usage{
-mmds.plot(x, new.plot = TRUE, pdf.file = NULL)
+mmds.plot(x, project = NULL, new.plot = TRUE, pdf.file = NULL)
 }
 \arguments{
   \item{x}{
   an object of class 'mmds', obtained from \code{\link{mmds}}.
+}
+  \item{project}{
+  an object of class 'project', obtained from \code{\link{mmds.project}} function.
 }
   \item{new.plot}{
   a boolean indicating whether a new graphical device should be created (TRUE) or not (FALSE). Default is TRUE.
@@ -21,7 +24,6 @@ mmds.plot(x, new.plot = TRUE, pdf.file = NULL)
   a string indicating the name and directory of the pdf graph outfile. Default is NULL. If this parameter is not
 NULL, the parameter \code{new.plot} is inactivated.
 }
-
 }
 \details{
 \code{mmds.plot} is a wrapper calling of both \code{\link{scree.plot}} and \code{\link{mmds.2D.plot}}.
@@ -51,7 +53,7 @@ Julien Pele and Jean-Michel Becu
 # summary plot of the MDS analysis of human GPCRs with projection of GPCRs
 # from D. melanogaster as supplementary elements:
 data(gpcr)
-mmds.plot(gpcr$mmds)
+mmds.plot(gpcr$mmds$sapiens.active,gpcr$mmds$melanogaster.project)
 }
 \keyword{plot}
 

@@ -2,15 +2,15 @@
 \Rdversion{1.1}
 \alias{mmds.3D.plot}
 \title{
-Plots the mmds coordinates onto a 2D space
+Display the mmds coordinates onto a 3D space
 }
 \description{
 Displays a 3D plot of the active elements and, if present, of supplementary elements, after a metric MDS analysis.
 }
 \usage{
-mmds.3D.plot(x , title = NULL, axis = c(1:3), 
+mmds.3D.plot(x, project = NULL, title = NULL, axis = c(1:3), 
 active.type = "s", sup.type = "p", active.size = 2, radius = 0.005,
-sup.size = 10, active.col = x$active.col[,3], sup.col = x$sup.col[,3], 
+sup.size = 10, active.col = x$col[,3], sup.col = project$col[,3], 
 box = TRUE, axes = TRUE, new.plot = TRUE, label = TRUE,
 xlim = NULL, ylim = NULL, zlim = NULL, box.lwd = 2,
 box.antialias = TRUE, ...)
@@ -22,6 +22,9 @@ box.antialias = TRUE, ...)
   \item{title}{
   a string of characters representing the title of the plot. Default is "Metric MDS".  
 }
+  \item{project}{
+  an object of class 'project', obtained from \code{\link{mmds.project}} function, or a list of object of class 'project'.
+}
   \item{axis}{
   a numeric vector of length three representing the principal components displayed on the plot. Default is c(1:3). 
 }
@@ -32,12 +35,12 @@ box.antialias = TRUE, ...)
   an character indicating the symbol of supplementary elements. This should be one of "s" for spheres, "p" for points, "l" for lines, "h" for line segments from z=0 and "n" for none. Default is "p", corresponding to points.
 }
   \item{active.col}{
-  a string of characters or character vector representing the color(s) of the active elements. Default is x$active.col[,3]. 
+  a string of characters or character vector representing the color(s) of the active elements. Default is x$col[,3]. 
   It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, 
   or to black (filled automaticaly with the \code{mmds} function). 
 }
   \item{sup.col}{
-  a string or character vector representing the color(s) of supplementary elements. Default is x$sup.col[,3]. 
+  a string or character vector representing the color(s) of supplementary elements. Default is project$col[,3]. 
   It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, 
   or to magenta (filled automaticaly with the \code{mmds} function)
 }
@@ -104,13 +107,7 @@ See \code{rgl} documentation to supplementary function like \code{snapshot3D} to
 # 3D plot of human GPCRs onto the first three axes obained from MDS analysis
 # with projection of GPCRs from D. melanogaster as supplementary elements:
 data(gpcr)
-mmds.3D.plot(gpcr$mmds)
-
-#without suplementary elements of mmds object :
-mmds.3D.plot(gpcr$mmds,sup.type="n")
-
-#with option of rgl package
-mmds.3D.plot(gpcr$mmds,active.type="p",sup.type="p",label=FALSE,lit=FALSE,
+mmds.3D.plot(gpcr$mmds$sapiens.active,active.type="p",label=FALSE,lit=FALSE,
 point_antialias=TRUE,box.lwd=3,sup.size=4.3,active.size=4.3)
 bbox3d(shininess=0.5)
 

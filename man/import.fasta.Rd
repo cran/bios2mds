@@ -1,6 +1,6 @@
-\name{read.fasta}
+\name{import.fasta}
 \Rdversion{1.1}
-\alias{read.fasta}
+\alias{import.fasta}
 \title{
 Reads a file in FASTA format
 }
@@ -8,7 +8,7 @@ Reads a file in FASTA format
 Reads a Multiple Sequence Alignment (MSA) file in FASTA format (.fasta or .fa extension).
 }
 \usage{
-read.fasta(file, aa.to.upper = TRUE, gap.to.dash = TRUE)
+import.fasta(file, aa.to.upper = TRUE, gap.to.dash = TRUE)
 }
 \arguments{
   \item{file}{
@@ -55,7 +55,7 @@ or \url{http://www.ebi.ac.uk/help/formats.html}
 }
 \examples{
 # reading of the multiple sequence alignment of human GPCRS in FASTA format:
-aln <- read.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
+aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
 }
-\keyword{read}
+\keyword{read,import,fasta}
 

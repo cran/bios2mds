@@ -1,4 +1,4 @@
-read.fasta <- function (file, aa.to.upper = TRUE, gap.to.dash = TRUE) {
+import.fasta <- function (file, aa.to.upper = TRUE, gap.to.dash = TRUE) {
 
   if(missing(file)) {
     stop("file is missing")

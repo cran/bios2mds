@@ -1,24 +1,23 @@
-\name{mmds.2D.plot}
+\name{mmds.2D.multi}
 \Rdversion{1.1}
-\alias{mmds.2D.plot}
+\alias{mmds.2D.multi}
 \title{
 Plots the mmds coordinates onto a 2D space
 }
 \description{
-Displays a scatter plot of the active elements and, if present, of supplementary elements, after a metric MDS analysis.
+Displays a scatter plot of the active elements and the barycenter of supplementary elements, or of groups of supplementary elements, after a metric MDS analysis.
 }
 \usage{
-mmds.2D.plot(x,project = NULL, title = NULL, axis = c(1, 2), xlim = NULL,
-ylim = NULL, outfile.type = NULL, outfile.name = "mmds",new.plot = TRUE,
-active.col = x$col[,3], active.alpha = 1, sup.col = project$col[,3], 
-active.pch = 20, sup.pch = 3, active.lab = FALSE, sup.lab = FALSE, 
-active.cex = 2, sup.cex = 2, active.legend.cex = 2, sup.legend.cex = 2,
-active.legend.lwd = 1, sup.legend.lwd = 2, active.lwd = 1, sup.lwd = 4,
+mmds.2D.multi(x,project, title = NULL, axis = c(1, 2), xlim = NULL,
+ylim = NULL, outfile.type = NULL,bary="p",
+outfile.name = "mmds",new.plot = TRUE, active.col = x$col[,3],
+active.alpha = 0.6, active.pch = 20, sup.pch = NULL , active.cex = 2,
+sup.cex = 2, active.legend.cex = 2, sup.legend.cex = 2,
+active.legend.lwd = 1, sup.legend.lwd = 2, active.lwd = 1, sup.lwd = 3,
 legend = TRUE, active.legend.pos = "bottomleft",
-sup.legend.pos = "bottomright", active.legend.name = x$group[,1],
-sup.legend.name = project$group[,1], active.legend.col = x$group[,2],
-sup.legend.col = project$group[,2], outfile.width = NULL, outfile.height = NULL,
-box.lwd = 1, cex.axis = 1, cex.lab = 1, sup.legend.text = 1,
+sup.legend.pos = "bottomright", group.name = NULL,
+ensemble.legend.name = "", group.col = NULL, outfile.width = NULL, outfile.height = NULL,
+box.lwd = 1, cex.axis = 1, sup.legend.text = 1,
 active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
 }
 \arguments{
@@ -26,10 +25,13 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
   an object of class 'mmds', obtained from \code{\link{mmds}} function.
 }
   \item{project}{
-  an object of class 'project', obtained from \code{\link{mmds.project}} function.
+  an object of class 'project' or a list of objects of class 'project', obtained from the \code{\link{mmds.project}} function. In the list the order of 'project' objects is very important because if the \code{bary} option equal to "l", the barycenters are linked in the same order as the list with the active barycenter linked as the last object.
 }
   \item{title}{
   a string of characters representing the title of the plot. Default is "Metric MDS".  
+}
+  \item{bary}{
+  a character to specify the representation of group barycenter with "p" for representation of group barycenter foreach 'project' and active space by dots and "l" for representation of barycenter linked foreach group in order of appearence in project list and with the barycenter of active group in last position. Default is "p".
 }
   \item{axis}{
   a numeric vector of length two representing the principal components displayed on the plot. Default is c(1, 2). 
@@ -53,7 +55,8 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
   an integer indicating the symbol of active elements. Default is 20, corresponding to dots.
 }
   \item{sup.pch}{
-  an integer indicating the symbol of supplementary elements. Default is 3, corresponding to crosses.
+  an integer vector representing the symbol for project barycenter. Default is NULL. 
+  If sup.pch is NULL then symbol are choose randomly.
 }
   \item{active.col}{
   a string of characters or character vector representing the color(s) of the active elements. Default is x$col[,3]. 
@@ -62,18 +65,7 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
 }
   \item{active.alpha}{
   a numeric value indicating the alpha value for opacity of active objects. This
-  value must range from 0 (invisible) to 1 (full opacity). Default is 1.
-}
-  \item{sup.col}{
-  a string or character vector representing the color(s) of supplementary elements. Default is project$col[,3]. 
-  It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, 
-  or to magenta (filled automaticaly with the \code{mmds} function). 
-}
-  \item{active.lab}{
-  a boolean indicating whether labels of active elements should be displayed (TRUE) or not (FALSE). Default is FALSE.
-}
-  \item{sup.lab}{
-  a boolean indicating whether labels of supplementary elements should be displayed (TRUE) or not (FALSE). Default is FALSE.
+  value must range from 0 (invisible) to 1 (full opacity). Default is 0.6.
 }
   \item{active.cex}{
   a numeric value indicating the size of the active symbols. Default is 2. 
@@ -91,7 +83,7 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
   a numeric value indicating the width of active symbols. Default is 1.  
 }
   \item{sup.lwd}{
-  a numeric value indicating the width of supplementary symbols. Default is 4. 
+  a numeric value indicating the width of supplementary symbols. Default is 3. 
 }
   \item{active.legend.lwd}{
   a numeric value indicating the width of active symbols in legend. Default is 1.  
@@ -108,23 +100,15 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
   \item{sup.legend.pos}{
   a string indicating the position of the legend for supplementary elements. Default is "topright".  
 }
-  \item{active.legend.name}{
-  a string vector indicating the names of the \code{active} groups. Default is x$group[,1]. 
-  It corresponds either to the user-provided groups if the \code{col.group} function has been used previously, 
-  or to "NoGroup" (filled automaticaly with the \code{mmds} function).
+  \item{group.name}{
+  a string vector indicating the names of the used groups. NULL vector allow to use all groups present in the 'mmds' object (x) and in all 'mmds.project' object. It corresponds either to the user-provided groups if the \code{col.group} function has been used previously, or to "NoGroup" (filled automaticaly with the \code{mmds} ans \code{mmds.project} functions). Each group in this vector must be presents in 'mmds' or 'mmds.project' objects and only group present in this vector will draw in the plot. Default is NULL.
 }
-  \item{sup.legend.name}{
-  a string vector indicating the names of the \code{sup} groups. Default is project$group[,1]. 
-  It corresponds either to the user-provided groups if the \code{col.group} function has been used previously, 
-  or to "NoGroup" (filled automaticaly with the \code{mmds} function).
+  \item{ensemble.legend.name}{
+  a string vector indicating the names of the \code{project} and the name of active space. Default is "".
+  It corresponds either to the names of project object ans in the last position of vector the name of the active space.
 }
-  \item{active.legend.col}{
-  a string vector indicating the colors of the different \code{active} groups. Default is x$group[,2]. It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, 
-  or to black (filled automaticaly with the \code{mmds} function).
-}
-  \item{sup.legend.col}{
-  a string vector indicating the colors of the different \code{sup} groups. Default is project$group[,2]. It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, 
-  or to magenta (filled automaticaly with the \code{mmds} function).
+  \item{group.col}{
+  a string vector indicating the colors of appearance of the used groups. This vector must have the same length of the group.name vector. NULL vector associate automaticaly the color of groups in 'mmds' and 'mmds.project' object to the group in the group.name parameter. It corresponds either to the user-provided colors if the \code{col.group} function has been used previously, or to black (filled automaticaly with the \code{mmds} and \code{project.mmds} functions). Default is NULL.
 }
   \item{outfile.width}{
   a numeric value in inches indicating the width of graph outfile. Default differs by outfile.type. See \code{pdf}, \code{png}, \code{postscript}.  
@@ -139,9 +123,6 @@ active.legend.text = 1, legend.axis = TRUE, grid = TRUE, axes = TRUE)
 }
   \item{cex.axis}{
   a numeric value indicating the character size for the x and y axes. Default is 1.  
-}
-  \item{cex.lab}{
-  a numeric value indicating the character size for the labels of the x and y axes. Default is 1.  
 }
   \item{sup.legend.text}{
   a numeric value indicating the character size of the supplementary tag in legend. Default is 1. 
@@ -172,7 +153,7 @@ If the \code{col.group} function has not been used, the default colors are black
 Produces a scatter plot on the active graphical device.
 }
 \author{
-Julien Pele and Jean-Michel Becu
+Jean-Michel Becu
 }
 \note{
 \code{mmds.2D.plot} requires \code{alpha} function from \code{ggplot2} package.
@@ -182,19 +163,26 @@ Julien Pele and Jean-Michel Becu
 \code{png}, \code{pdf}, \code{postscript} functions (default R package).
 }
 \examples{
-# scatter plot of human GPCRs onto the first two axes obtained from MDS analysis
-# with projection of GPCRs from D. melanogaster as supplementary elements:
+# scatter plot of human GPCRs onto the first two axes obtained
+# from MDS analysis with projection of GPCRs from N.vectensis 
+# and C.intestinalis as supplementary elements:
 data(gpcr)
-active <- gpcr$dif$sapiens.sapiens
-mmds_active <- mmds(active,group.file=system.file(
-"csv/human_gpcr_group.csv",package = "bios2mds"))
-mmds.2D.plot(mmds_active, active.alpha = 0.5, active.lab = TRUE)
 
-# with group information
-sup <- gpcr$dif$melanogaster.sapiens
-mmds_sup <- mmds.project(mmds_active, sup,group.file=system.file(
-"csv/drome_gpcr_group.csv",package = "bios2mds"))
-mmds.2D.plot(mmds_active,mmds_sup)
+mmds_human <- gpcr$mmds$sapiens.active
+project_vectensis <-gpcr$mmds$vectensis.project
+project_intestinalis <-gpcr$mmds$intestinalis.project
+
+mmds.2D.multi(mmds_human,project=list(project_vectensis,project_intestinalis),
+bary='l',cex.axis=0.01,active.cex = 1, sup.cex = 1,active.lwd=1.5,sup.lwd=3,
+ensemble.legend.name=c('nemve','inte','human'),legend=FALSE,title='multi_human')
+
+# with selected group
+
+mmds.2D.multi(mmds_human,project=list(project_vectensis,project_intestinalis),
+bary='l',cex.axis=0.01,active.cex = 1, sup.cex = 1,active.lwd=1.5,sup.lwd=3,
+ensemble.legend.name=c('nemve','inte','human'),legend=FALSE,title='multi_human',
+group.name=c('SO','PEP','OPN','ADENO'),group.col=c("red","forestgreen","orange","maroon"))
+
 }
 \keyword{plot}
 

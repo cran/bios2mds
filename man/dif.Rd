@@ -61,7 +61,7 @@ Nei M and Kumar S (2000) Molecular Evolution and Phylogenetics.
 \examples{
 # calculating the difference score between the sequences 
 # of CLTR1_HUMAN and CLTR2_HUMAN:
-aln <- read.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
+aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
 dif <- dif(aln$CLTR1_HUMAN, aln$CLTR2_HUMAN)
 dif
 }

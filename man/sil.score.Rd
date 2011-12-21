@@ -83,7 +83,7 @@ Guy B, Vasyl P, Susmita D and Somnath D (2008) clValid: An R Package for Cluster
 data(gpcr)
 active <- gpcr$dif$sapiens.sapiens
 mds <- mmds(active)
-sil.score1 <- sil.score(mds$active.coord, nb.clus = c(2:10),
+sil.score1 <- sil.score(mds$coord, nb.clus = c(2:10),
  nb.run = 100, iter.max = 100)
 barplot(sil.score1)
 }

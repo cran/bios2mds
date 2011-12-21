@@ -1,6 +1,6 @@
-\name{read.msf}
+\name{import.msf}
 \Rdversion{1.1}
-\alias{read.msf}
+\alias{import.msf}
 \title{
 Reads a multiple sequence alignment file in MSF format
 }
@@ -8,7 +8,7 @@ Reads a multiple sequence alignment file in MSF format
 Reads a Multiple Sequence Alignment (MSA) file in MSF format (.msf extension).
 }
 \usage{
-read.msf(file, aa.to.upper = TRUE, gap.to.dash = TRUE)
+import.msf(file, aa.to.upper = TRUE, gap.to.dash = TRUE)
 }
 \arguments{
   \item{file}{
@@ -43,7 +43,7 @@ A object of class 'align', which is a named list whose elements correspond to se
 Julien Pele
 }
 \note{
-\code{read.msf} checks the presence of duplicated identifiers in header. Sequences whose
+\code{import.msf} checks the presence of duplicated identifiers in header. Sequences whose
 identifiers are missing in header are ignored.
 }
 \seealso{
@@ -52,7 +52,7 @@ identifiers are missing in header are ignored.
 }
 \examples{
 # reading of the multiple sequence alignment of human GPCRs in MSF format:
-aln <- read.msf(system.file("msa/human_gpcr.msf", package = "bios2mds"))
+aln <- import.msf(system.file("msa/human_gpcr.msf", package = "bios2mds"))
 }
-\keyword{read}
+\keyword{read,import,msf}
 

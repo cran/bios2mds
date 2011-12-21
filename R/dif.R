@@ -14,6 +14,6 @@ dif <- function(seq1, seq2, gap = FALSE, aa.strict = FALSE) {
   }
 
   #complete.cases takes NA into account
-  res <- round(sum(seq1 != seq2, na.rm = TRUE)/sum(complete.cases(cbind(seq1, seq2))), 3)
+  res <- sum(seq1 != seq2, na.rm = TRUE)/sum(complete.cases(cbind(seq1, seq2)))
   return (res)
 }

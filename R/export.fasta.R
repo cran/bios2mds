@@ -1,4 +1,4 @@
-write.fasta <- function (x, outfile = "alignment.fa", ncol = 60, open = "w") {
+export.fasta <- function (x, outfile = "alignment.fa", ncol = 60, open = "w") {
 
   testClass<-0
   if (inherits(x,"list")) {

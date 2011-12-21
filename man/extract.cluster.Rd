@@ -15,7 +15,7 @@ extract.cluster(x, align)
   an object of class 'kmean', obtained from \code{\link{kmeans.run}} function.
 }
   \item{align}{
-  an object of class 'align', obtained from \code{\link{read.fasta}} or \code{\link{read.msf}} function.  
+  an object of class 'align', obtained from \code{\link{import.fasta}} or \code{\link{import.msf}} function.  
 }
 }
 \details{
@@ -31,9 +31,9 @@ Jean-Michel Becu
 \examples{
 # Clustering human GPCRs in 4 groups with 100 runs of K-means 
 # and extraction of the alignment of each cluster
-aln <- read.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
+aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
 data(gpcr)
-kmeans <- kmeans.run(gpcr$mmds$active.coord, nb.clus = 4, nb.run = 100)
+kmeans <- kmeans.run(gpcr$mmds$sapiens.active$coord, nb.clus = 4, nb.run = 100)
 clusAlign <- extract.cluster(kmeans,aln)
 
 }

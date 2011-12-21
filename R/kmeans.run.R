@@ -1,4 +1,4 @@
- kmeans.run <- function (mat, nb.clus = 2, nb.run = 1000, iter.max = 1000, method = "euclidean") {
+ kmeans.run <- function (mat, nb.clus = 2, nb.run = 1000, iter.max = 10000, method = "euclidean") {
 
   #result will be stored
   #in a list of two lists

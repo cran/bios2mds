@@ -22,8 +22,14 @@ correspond to the twenty strict amino acids.
   \item{PAM120}{
   matrix was produced by "pam" Version 1.0.7
   }
+  \item{PAM160}{
+  matrix was produced by "pam" Version 1.0.7 
+  }
   \item{PAM250}{
   log odds matrix for 250 PAMs (Dayhoff et al., 1978)
+  }
+  \item{BLOSUM30}{
+  substitution matrix (Henikoff-Henikoff, 1992)
   }
   \item{BLOSUM45}{
   substitution matrix (Henikoff-Henikoff, 1992)
@@ -34,7 +40,13 @@ correspond to the twenty strict amino acids.
   \item{BLOSUM80}{
   substitution matrix (Henikoff-Henikoff, 1992)
   }
-  \item{PAM250TM}{
+  \item{GONNET}{
+  substitution matrix (GONNET et al., 1992)
+  }
+  \item{JTT}{
+  substitution matrix (Jones et al., 1992)
+  }
+  \item{JTT_TM}{
   transmembrane protein exchange matrix (Jones et al., 1994)
   }
   \item{PHAT}{
@@ -57,12 +69,17 @@ Atlas of protein sequence and structure (volume 5, supplement 3 ed.). Nat. Biome
 Henikoff S and Henikoff JG (1992) Amino acid substitution matrices from protein blocks.
 \emph{Proc Natl Acad Sci U S A} \bold{89}:10915-9. 
 
+Jones DT, Taylor WR and Thornton JM (1992) The rapid generation of mutation data matrices
+from protein sequences. \emph{Comput Appl. Biosci} \bold{8}:275-282. 
+
 Jones DT, Taylor WR and Thornton JM (1994) A mutation data matrix for transmembrane
 proteins. \emph{FEBS Lett} \bold{339}:269-75. 
 
 Ng PC, Henikoff JG and Henikoff S (2000) PHAT: a transmembrane-specific substitution
-matrix. Predicted hydrophobic and transmembrane. \emph{Bioinformatics} \bold{16}:760-6. 
+matrix. Predicted hydrophobic and transmembrane. \emph{Bioinformatics} \bold{16}:760-6.
 
+Gonnet GH, Cohen MA and Benner SA (1992) Exhaustive matching of the entire protein sequence database.
+\emph{Science} \bold{256}:1443-1445.
 
 }
 \examples{

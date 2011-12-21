@@ -1,6 +1,6 @@
-\name{write.fasta}
+\name{export.fasta}
 \Rdversion{1.1}
-\alias{write.fasta}
+\alias{export.fasta}
 \title{
 Writes a MSA file in FASTA format
 }
@@ -8,11 +8,11 @@ Writes a MSA file in FASTA format
 Writes a multiple sequence alignment (MSA) file in FASTA format.
 }
 \usage{
-write.fasta(x, outfile = "alignment.fa", ncol = 60, open = "w")
+export.fasta(x, outfile = "alignment.fa", ncol = 60, open = "w")
 }
 \arguments{
   \item{x}{
-  an object of class 'align', obtained from \code{\link{read.fasta}} or \code{\link{read.msf}}, or an element list from the \code{\link{extract.cluster}} function return.
+  an object of class 'align', obtained from \code{\link{import.fasta}} or \code{\link{import.msf}}, or an element list from the \code{\link{extract.cluster}} function return.
   }
   \item{outfile}{
   a string of characters or string vector to indicate the name of the MSA file(s) to be written. If x is an object of class 'align', default is "alignment.fa". If x is an element list, for each element in x, default is the element name, followed by the ".alignement.fa" extension.
@@ -52,8 +52,8 @@ or \url{http://www.ebi.ac.uk/help/formats.html}
 }
 \examples{
 # reading of the multiple sequence alignment of human GPCRS in FASTA format:
-aln <- read.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
-write.fasta(aln)
+aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
+export.fasta(aln)
 }
-\keyword{read}
+\keyword{export,fasta}
 

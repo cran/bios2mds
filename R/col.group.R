@@ -1,5 +1,5 @@
 col.group <- function(x,file,data="active"){
-	if (!inherits(x, "mmds")) 
+	if (!inherits(x, "mmds") && !inherits(x, "project")) 
 	        stop("object of class 'mmds' expected")
 	if(missing(file)) {
 		stop("file is missing")
@@ -10,12 +10,7 @@ col.group <- function(x,file,data="active"){
 	i<-1
 	col<-matrix(c(NA,NA,NA),1)
 	group<-matrix(c(NA,NA),1)
-	if(data=="active"){
-		names<-attributes(x$active.coord)$row.names
-	}
-	if(data=="sup"){
-		names<-attributes(x$sup.coord)$row.names
-	}
+		names<-attributes(x$coord)$row.names
 	if(length(which(c("active","sup")==data))==0){
 		stop("data wrong attribute")
 	}
@@ -55,13 +50,8 @@ col.group <- function(x,file,data="active"){
 	}
 	colnames(col)<-c("element","group","color")
 	colnames(group)<-c("group","color")
-	if(data=="active"){
-		x$active.col<-col[2:length(col[,1]),]
-		x$active.group<-group[2:length(group[,1]),]
-	}
-	else{
-		x$sup.col<-col[2:length(col[,1]),]
-		x$sup.group<-group[2:length(group[,1]),]
-	}
+		x$col<-col[2:length(col[,1]),]
+		x$group<-group[2:length(group[,1]),]
+
   	return(x)
 }

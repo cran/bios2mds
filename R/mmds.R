@@ -1,4 +1,4 @@
-mmds <- function (active, sup = NULL, pc = 3) {
+mmds <- function (active, pc=3, group.file=NULL) {
 
  #active validation
     if (!is.matrix(active))
@@ -7,8 +7,8 @@ mmds <- function (active, sup = NULL, pc = 3) {
 	stop("active is not square")
     if (!isSymmetric.matrix(active))
 	stop("active is not symmetric")
-    if (sum(diag(active)) != 0)
-	stop("active diagonal values are not zero")
+    #if (sum(diag(active)) != 0)
+    #	stop("active diagonal values are not zero")
 
     if (!is.numeric(active))                         
         stop("numeric values expected in active") 
@@ -19,20 +19,6 @@ mmds <- function (active, sup = NULL, pc = 3) {
     if (is.null(colnames(active)))
 	colnames(active) <- rownames(active)
 
-    #sup validation
-    if (!is.null(sup)) {
-	if (!is.matrix(sup))
-	    stop("sup is not a matrix")
-	if (any(is.infinite(sup)))
-	    stop("infinite or missing values not allowed in sup")
-	if (ncol(active) != ncol(sup))
-	    stop("col numbers are unequal")
-	if (is.null(rownames(sup)))
-	    rownames(sup) <- paste("S", 1:nrow(sup), sep = "")
-	if (is.null(colnames(sup)))
-	    colnames(sup) <- rownames(active)
-    }
-    
 	#results will be stored in a list
 	res <- list ()
 
@@ -40,22 +26,28 @@ mmds <- function (active, sup = NULL, pc = 3) {
 	D <- active^2
 
 	#identity matrix
-	I <- diag(1, nrow(active))
+        I <- diag(1, nrow(active))
+	#I <- matrix(0, nrow=nrow(active),ncol=nrow(active))
 
 	#active matrix of ones
-	ONES <- matrix(1, nrow = nrow(active), ncol = nrow(active))
-
+	ONES <- matrix(1, nrow = nrow(active), ncol = 1)
+	#m vector of mass
+        m<-matrix(1/nrow(active),nrow = nrow(active), ncol = 1)
+	BigI<-I-(ONES%*%t(m))
 	#compute active cross-product matrix
-	S <-  -0.5 * (I-((1/nrow(active)) * ONES)) %*% D %*% (I-((1/nrow(active)) * ONES))
+	S <-  -0.5 * (BigI %*% D %*% t(BigI))
 	eigen <- eigen(S)
+	res$eigen <- round(eigen$values[1:pc], 3)
 	eigen.perc <- (abs(eigen$values) * 100) / sum(eigen$values[eigen$values>0])
 	res$eigen.perc <- round(eigen.perc[1:pc], 3)
 	#only positive eigenvalues are kept
 	eigen$vectors <- eigen$vectors[, eigen$values > 0]
 	eigen$values <- eigen$values[eigen$values > 0]
-
-	res$eigen <- round(eigen$values[1:pc], 3)
-
+	
+	#res$eigen <- round(eigen$values[1:pc], 3)
+	res$source<-list()
+	res$source$D <- D
+	res$source$m<-m
 	#check principal components
 	if (pc < 2)
 		pc <- 3
@@ -66,43 +58,21 @@ mmds <- function (active, sup = NULL, pc = 3) {
 
 
 	#compute active matrix of factor scores
-	F <- eigen$vectors %*% diag(eigen$values^0.5)
+	F <- diag(as.vector(m)^(-0.5)) %*% eigen$vectors %*% diag(eigen$values^0.5)
 
-	active.coord <- data.frame(F[, 1:pc])
-	rownames(active.coord) <- rownames(active)
-	colnames(active.coord) <- paste ("PC", (1:pc), sep = "")
-	res$active.coord = round(active.coord, 3)
-	res$active.group<-matrix(c("NoGroup","black"),1)
-	colnames(res$active.group)<-c("group","color")
-	#res$active.group<-as.data.frame.matrix(res$active.group)
-	res$active.col<-matrix(c("","NoGroup","black"),1)
-        colnames(res$active.col)<-c("element","group","color")
-	#res$active.col<-as.data.frame.matrix(res$active.col)
-
-	#MDS of supplementary data
-	if (!is.null(sup)) {
-		
-		Dsup <- sup^2
-
-		#supplementary matrix of ones
-		ONESsup <- matrix(1, nrow = nrow(active), ncol = nrow(sup))
-
-		#compute supplementary cross-product matrix
-		Ssup <-  -0.5 * (I-((1/nrow(active)) * ONES)) %*% (t(Dsup) - (1/nrow(active)) * (D %*% ONESsup))
-
-		#compute supplementary matrix of factor scores
-		Fsup <- t(Ssup) %*% F %*% diag(eigen$values^-1)
-		sup.coord <- data.frame(Fsup[, 1:pc])
-		rownames(sup.coord) <- rownames(sup)
-		colnames(sup.coord) <- paste ("PC", (1:pc), sep = "")
-		res$sup.coord <- round(sup.coord, 3)
-		res$sup.group<-matrix(c("NoGroup","magenta"),1)
-		colnames(res$sup.group)<-c("group","color")
-		#res$sup.group<-as.data.frame.matrix(res$sup.group)
-		res$sup.col<-matrix(c("","NoGroup","magenta"),1)
-	        colnames(res$sup.col)<-c("element","group","color")
-		#res$sup.col<-as.data.frame.matrix(res$sup.col)
-	}
+	coord <- data.frame(F[, 1:pc])
+	rownames(coord) <- rownames(active)
+	colnames(coord) <- paste ("PC", (1:pc), sep = "")
+	res$coord = round(coord, 3)
+	res$group<-matrix(c("NoGroup","black"),1)
+	colnames(res$group)<-c("group","color")
+	#res$active.group<-as.data.frame.matrix(res$group)
+	res$col<-matrix(c("","NoGroup","black"),1)
+        colnames(res$col)<-c("element","group","color")
+	#res$col<-as.data.frame.matrix(res$col)
 	class (res) <- c("mmds")
+	if(!is.null(group.file)){
+		res<-col.group(res,group.file,data="active")
+        }
 	return (res)
 }

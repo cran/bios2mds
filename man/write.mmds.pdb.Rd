@@ -7,11 +7,14 @@ Writes PDB file}
 Writes MDS coordinates in the Protein Data Bank format for visualization with a molecular graphics viewer.
 }
 \usage{
-write.mmds.pdb(x, axis = c(1, 2, 3), file.pdb = "R.pdb")
+write.mmds.pdb(x,project = NULL, axis = c(1, 2, 3), file.pdb = "R.pdb")
 }
 \arguments{
   \item{x}{
   an object of class 'mmds', obtained from \code{\link{mmds}} function.
+}
+  \item{project}{
+  an object of class 'project', obtained from \code{\link{mmds.project}} function, or a list of object of class 'project'.
 }
   \item{axis}{
   a numeric vector of length three the principal components to be displayed. Default is c(1, 2, 3). 
@@ -39,7 +42,7 @@ Julien Pele and Jean-Michel Becu
 \examples{
 # writing the first three MDS coordinates of human GPCRs in a PDB file 
 data(gpcr)
-write.mmds.pdb(gpcr$mmds)
+write.mmds.pdb(gpcr$mmds$sapiens.active)
 }
 \keyword{write}
 

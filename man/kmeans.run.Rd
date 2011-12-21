@@ -8,7 +8,7 @@ Multiple runs of K-means analysis
 Performs multiple runs of K-means clustering and analyzes data.
 }
 \usage{
-kmeans.run(mat, nb.clus = 2, nb.run = 1000, iter.max = 1000,
+kmeans.run(mat, nb.clus = 2, nb.run = 1000, iter.max = 10000,
 method = "euclidean")
 }
 \arguments{
@@ -22,7 +22,7 @@ method = "euclidean")
   a numeric value indicating the number of runs. Default is 1000.
 }
   \item{iter.max}{
-  a numeric value indicating the maximum number of iterations for K-means. Default is 1000. 
+  a numeric value indicating the maximum number of iterations for K-means. Default is 10000. 
 }
   \item{method}{
   a string of characters to determine the distance to be used. This should be one of "euclidean", "maximum",
@@ -58,7 +58,7 @@ and \code{e1071} packages, respectively.
 \examples{
 # Clustering human GPCRs in 4 groups with 100 runs of K-means
 data(gpcr)
-coord <- gpcr$mmds$active.coord
+coord <- gpcr$mmds$sapiens.active$coord
 kmeans.run1 <- kmeans.run(coord, nb.clus = 4, nb.run = 100)
 kmeans.run1$clusters
 kmeans.run1$elements
