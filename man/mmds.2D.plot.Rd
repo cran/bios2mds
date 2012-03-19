@@ -175,7 +175,7 @@ Produces a scatter plot on the active graphical device.
 Julien Pele and Jean-Michel Becu
 }
 \note{
-\code{mmds.2D.plot} requires \code{alpha} function from \code{ggplot2} package.
+\code{mmds.2D.plot} requires \code{alpha} function from \code{scales} package.
 }
 \seealso{
 \code{plot.PCA} function from \code{FactoMineR} package.\cr

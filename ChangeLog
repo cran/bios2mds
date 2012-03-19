@@ -37,3 +37,10 @@ Date: 2011-12-21
 	* mat.dif, mat.dis : Upgraded in order to gain execution time, 'sqrt' option added, gtools dependence removed.
 	
 	* gpcr(data) : Modification of sub 'mmds' with the new structure of the MDS analysis return.
+
+
+-------------------
+Version: 1.2.1
+Date: 2012-03-19
+
+	* mmds.2D.plot, mmds.2D.multi : Dependance to the alpha function from the ggplot2 package changed to the alpha function from the scales package.  

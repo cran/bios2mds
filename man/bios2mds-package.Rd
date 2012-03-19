@@ -63,9 +63,9 @@ Several functions allow users to read multiple sequence alignment files and to c
 \tabular{ll}{
 Package \tab bios2mds\cr
 Type \tab Package\cr
-Version \tab 1.2\cr
+Version \tab 1.2.1\cr
 Repository \tab CRAN\cr
-Date \tab 2011-12-21\cr
+Date \tab 2012-03-19\cr
 License \tab GPL version 2 or newer\cr
 Collate	\tab Other useful packages can be found in the CRAN task view.\cr
 \tab See \url{http://cran.stat.sfu.ca/web/views/Multivariate.html}\cr
