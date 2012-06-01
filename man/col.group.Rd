@@ -9,7 +9,7 @@ Links elements in a \code{mmds} object or \code{mmds.project} object to user-pro
 }
 
 \usage{
-col.group(x,file,data = "active")
+col.group(x,file)
 }
 \arguments{
 	\item{x}{
@@ -17,9 +17,6 @@ col.group(x,file,data = "active")
 	}
 	\item{file}{
 	  a string of characters to indicate the file name assigning groups and colors to each active OR each supplementary element of the mmds object.
-	}
-	\item{data}{
-	 a string of characters to specify whether the assigned elements in the mmds object are active ("active") or supplementary ("sup") data. Default is "active". 
 	}
 }
 \details{

@@ -44,3 +44,13 @@ Version: 1.2.1
 Date: 2012-03-19
 
 	* mmds.2D.plot, mmds.2D.multi : Dependance to the alpha function from the ggplot2 package changed to the alpha function from the scales package.  
+
+-------------------
+Version: 1.2.2
+Date: 2012-06-01
+
+	* write.mmds.pdb : "file.pml" parameters added. Correction of projection bug.  
+
+	* kmeans.run : Correction of kmeans bug.  
+
+	* col.group : Removing "data" option.  

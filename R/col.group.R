@@ -1,6 +1,6 @@
-col.group <- function(x,file,data="active"){
+col.group <- function(x,file){
 	if (!inherits(x, "mmds") && !inherits(x, "project")) 
-	        stop("object of class 'mmds' expected")
+	        stop("object of class 'mmds' or 'project' expected")
 	if(missing(file)) {
 		stop("file is missing")
 	}
@@ -10,10 +10,12 @@ col.group <- function(x,file,data="active"){
 	i<-1
 	col<-matrix(c(NA,NA,NA),1)
 	group<-matrix(c(NA,NA),1)
-		names<-attributes(x$coord)$row.names
-	if(length(which(c("active","sup")==data))==0){
-		stop("data wrong attribute")
+	if(length(as.vector(element[,1]))==length(intersect(as.vector(element[,1]),rownames(x$coord)))){
+        	x$coord<-x$coord[unique(c(as.vector(element[,1]),rownames(x$coord))),]
+	} else {
+		stop("Some element in csv file don't exist in 'mmds' or 'project' object")
 	}
+		names<-attributes(x$coord)$row.names
 	while(i <= length(names)){
 		j<-which(element[,1]==names[i])
 		if(length(j)>1){
@@ -39,11 +41,7 @@ col.group <- function(x,file,data="active"){
 				}
 			}
 			else{
-				col<-rbind(col,matrix(c(names[i],"NoGroup","black"),1))
-				if(length(which(group[,1] == "NoGroup"))==0){
-					group<-rbind(group,matrix(c("NoGroup","black"),1))
-				}
-				print("Element in file hadn't all parameter")
+				stop("Element in file hadn't all parameter")
 			}
 		}
 		i<-i+1

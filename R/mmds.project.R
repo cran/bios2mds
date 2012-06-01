@@ -70,7 +70,7 @@ mmds.project <- function (mmds, sup, pc = 3, group.file=NULL) {
 		
 	class (res) <- c("project")
 	if(!is.null(group.file)){
-		res<-col.group(res,group.file,data="sup")
+		res<-col.group(res,group.file)
 	}
 	return (res)
 }

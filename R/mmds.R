@@ -72,7 +72,7 @@ mmds <- function (active, pc=3, group.file=NULL) {
 	#res$col<-as.data.frame.matrix(res$col)
 	class (res) <- c("mmds")
 	if(!is.null(group.file)){
-		res<-col.group(res,group.file,data="active")
+		res<-col.group(res,group.file)
         }
 	return (res)
 }

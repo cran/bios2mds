@@ -9,12 +9,12 @@
   #compute k-means according to nb.run
   j <- 1
   while (j <= nb.run) {
-    cluster <- Kmeans(mat, nb.clus, iter.max = iter.max, method = method)$cluster
-    len <- length(unique(cluster))
+    cluster <- Kmeans(mat, nb.clus, iter.max = iter.max, method = method)
+    len <- length(unique(cluster$cluster))
     #Kmeans function may not 
     #return k specified clusters
     if (nb.clus == len) {
-      res.kmeans[[j]] <- cluster
+      res.kmeans[[j]] <- cluster$cluster
       j <- j + 1
     }
   }
@@ -65,12 +65,16 @@
     v <- rep(0, nb.clus); names(v) <- seq_len(nb.clus); v[i] <- value.max; return (v)})
   for (i in 1:length(ref1)) {
     l <- as.numeric(names(ref1[i]))
-    if (k > l)
+    if (k > l) {
       m <- res.match[[l]][[k]]
-    else 
+      mname<-as.vector(m)
+      m <- as.numeric(names(m))
+      names(m) <- mname
+     } else {
       m <- res.match[[k]][[l]]
+     }
     #match clus attribution between unique k-means results
-    clus <- match(res.kmeans[[as.numeric(names(index.max))]], m)
+    clus <- match(res.kmeans[[l]], m)
     for (j in 1:length(clus)) {
       #attribute occurrence to respective clus
       occ[[j]][clus[j]] <- occ[[j]][clus[j]] + ref1[i]
