@@ -5,3 +5,12 @@ importFrom(amap, Kmeans)
 importFrom(e1071, matchClasses)
 importFrom(scales, alpha)
 importFrom(cluster, silhouette)
+importFrom("grDevices", "col2rgb", "dev.new", "dev.off", "pdf", "png",
+             "postscript", "tiff")
+importFrom("graphics", "abline", "barplot", "box", "layout", "lines",
+             "plot", "points", "text")
+importFrom("stats", "complete.cases", "dist", "na.omit")
+importFrom("utils", "data", "read.table")
+
+
+

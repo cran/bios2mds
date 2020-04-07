@@ -45,15 +45,17 @@ Jean-Michel Becu
 }
 \note{
 For further information about FASTA format, see: \url{http://www.ncbi.nlm.nih.gov/BLAST/fasta.shtml}
-or \url{http://www.ebi.ac.uk/help/formats.html}
+
 }
 \seealso{
 \code{write.fasta} function from \code{seqinr} package.\cr
 }
 \examples{
 # reading of the multiple sequence alignment of human GPCRS in FASTA format:
+wd <- tempdir()
+#wd <- getwd()
+file1 <- file.path(wd,"alignment.fa")
 aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
-export.fasta(aln)
+export.fasta(aln,file1)
 }
-\keyword{export,fasta}
 

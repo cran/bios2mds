@@ -112,4 +112,3 @@ point_antialias=TRUE,box.lwd=3,sup.size=4.3,active.size=4.3)
 bbox3d(shininess=0.5)
 
 }
-\keyword{plot, 3D}

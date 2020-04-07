@@ -47,8 +47,12 @@ Julien Pele and Jean-Michel Becu
 }
 \examples{
 # writing the first three MDS coordinates of human GPCRs in a PDB file 
+wd <- tempdir()
+#wd <- getwd()
+file1 <- file.path(wd,"sapiens.pdb")
+file2 <- file.path(wd,"sapiens.pml")
 data(gpcr)
-write.mmds.pdb(gpcr$mmds$sapiens.active,file.pdb="sapiens.pdb",file.pml="sapiens.pml")
+write.mmds.pdb(gpcr$mmds$sapiens.active,file.pdb=file1,file.pml=file2)
 }
 \keyword{write}
 

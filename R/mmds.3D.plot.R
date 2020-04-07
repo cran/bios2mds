@@ -70,8 +70,8 @@ box.antialias = TRUE, ...) {
   if (!is.null(project))
     plot3d(project$coord[,axis[1]], project$coord[,axis[2]], project$coord[,axis[3]], col=sup.col,type=sup.type,size=sup.size,add = TRUE, radius = radius, xlim= xlim, ylim = ylim, zlim =zlim, ...)
   if (new.plot == FALSE && box == TRUE) {
-    box3d(lwd= box.lwd,line_antialias= box.antialias)
+    rgl::box3d(lwd= box.lwd,line_antialias= box.antialias)
     if (axes == TRUE)
-      axes3d(lwd= box.lwd,line_antialias= box.antialias)
+      rgl::axes3d(lwd= box.lwd,line_antialias= box.antialias)
   }
 }

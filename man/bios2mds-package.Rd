@@ -68,8 +68,8 @@ Repository \tab CRAN\cr
 Date \tab 2012-06-01\cr
 License \tab GPL version 2 or newer\cr
 Collate	\tab Other useful packages can be found in the CRAN task view.\cr
-\tab See \url{http://cran.stat.sfu.ca/web/views/Multivariate.html}\cr
-\tab and \url{http://cran.stat.sfu.ca/web/views/Cluster.html}}}
+\tab See \url{https://mirror.its.sfu.ca/mirror/CRAN/web/views/Multivariate.html}\cr
+\tab and \url{https://mirror.its.sfu.ca/mirror/CRAN/web/views/Cluster.html}}}
 \author{
 Julien Pele <julien.pele@yahoo.fr> with Jean-Michel Becu <jean-michel.becu@etu.univ-rouen.fr>, 
 Herve Abdi <herve@utdallas.edu> and Marie Chabbert <marie.chabbert@univ-angers.fr>.
@@ -81,11 +81,13 @@ citation('bios2mds')
 }
 \keyword{package}
 \examples{
+
 # The MSA files provided with the package correspond to the sequence 
 # alignment of non-olfactory class A G-protein-coupled receptors from
 # H. sapiens and D. melanogaster prepared by Deville et al. (2009).  
-
 # loading GPCR data
+wd <- tempdir()
+file <- file.path(wd,"R.pdb")
 data(gpcr)
 
 # building distance matrices between the aligned GPCR sequences from
@@ -116,12 +118,12 @@ layout(matrix(1:6, 2, 3))
 
 scree.plot(mmds_active$eigen.perc, lab = TRUE, title = "Scree plot of metric MDS")
 
-mmds.2D.plot(mmds_active, title = "Sequence space of human GPCRs ")
+mmds.2D <- mmds.2D.plot(mmds_active, title = "Sequence space of human GPCRs")
 
 mmds.2D.plot(mmds_active,mmds_sup, title = "Projection of GPCRs from D. melanogaster
  onto the space space of human GPCRs ", active.alpha = 0.3)
-
+   
 # writing PDB files for 3D visualization of MDS coordinates
-write.mmds.pdb(mmds_active) 
+write.mmds.pdb(mmds_active,file.pdb=file)
 
 }

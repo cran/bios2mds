@@ -54,5 +54,4 @@ identifiers are missing in header are ignored.
 # reading of the multiple sequence alignment of human GPCRs in MSF format:
 aln <- import.msf(system.file("msa/human_gpcr.msf", package = "bios2mds"))
 }
-\keyword{read,import,msf}
 

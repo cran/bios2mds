@@ -46,7 +46,7 @@ Julien Pele
 }
 \note{
 For further information about FASTA format, see: \url{http://www.ncbi.nlm.nih.gov/BLAST/fasta.shtml}
-or \url{http://www.ebi.ac.uk/help/formats.html}
+
 }
 \seealso{
 \code{read.fasta} function from \code{bio3d} package.\cr
@@ -57,5 +57,4 @@ or \url{http://www.ebi.ac.uk/help/formats.html}
 # reading of the multiple sequence alignment of human GPCRS in FASTA format:
 aln <- import.fasta(system.file("msa/human_gpcr.fa", package = "bios2mds"))
 }
-\keyword{read,import,fasta}
 

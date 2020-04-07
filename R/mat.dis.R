@@ -1,12 +1,7 @@
 mat.dis <- function (align1, align2, sub.mat.id = "PAM250",  sqrt = FALSE) {
-
-  if (!exists("sub.mat"))
-    data("sub.mat", package = "bios2mds", verbose= FALSE)
-
-  if (!is.element(sub.mat.id, names(sub.mat)))
+if (!is.element(sub.mat.id, names(sub.mat)))
     stop("sub.mat does not contain sub.mat.id")
        
-
 # prepare substitution matrix
 s<-matrix(0,ncol=21,nrow=21)
 s[1:20,1:20]<-sub.mat[[sub.mat.id]]

@@ -5,7 +5,7 @@ col.group <- function(x,file){
 		stop("file is missing")
 	}
 	
-	element<-read.table(file=file,comment.char="#",sep=",")
+	element<-read.table(file=file,comment.char="#",sep=",",stringsAsFactors = TRUE)
 	id<-list()
 	i<-1
 	col<-matrix(c(NA,NA,NA),1)
